@@ -12,7 +12,9 @@ An Vue [QTUM](https://github.com/qtumproject) starter dApp.
 ![](demo.gif)
 
 # Project setup
-For a full and complete guide I would like to refer to [Developer's Guide to QTUM](https://github.com/qtumproject/qtumbook)
+Most of this setup comes from the [Developer's Guide to QTUM](https://github.com/qtumproject/qtumbook)
+
+Visit this repo for more and complete guides for developing QTUM dApps
 ## Install Docker & Node
 **https://www.docker.com/get-started**
 
@@ -31,13 +33,25 @@ docker run -it --rm \
   -p 9888:9888 \
   hayeah/qtumportal
 ```
-Enter into the container:
+Open a new terminal and enter into the container:
 ```
 docker exec -it myapp sh
 ```
 Generate some initial balance:
 ```
 qcli generate 600
+```
+Let's generate an address to act as the owner.
+```
+qcli getnewaddress
+```
+Let's fund the owner address with 10 QTUM, to pay for gas when we deploy our contract later:
+```
+qcli sendtoaddress address_from_previous_command 10
+```
+Finally, we'll need to configure the deployment tool `solar` to use this particular address as the owner:
+```
+export QTUM_SENDER=address_from_previous_command
 ```
 Use the Solar Smart Contract tool to deploy a contract ( I used the one in the /contracts folder)
 
@@ -62,9 +76,13 @@ Use `solar status` to check your deployed contracts.
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Dev server
 ```
 npm run serve
+```
+### QTUM Portal Authorizations for accepting send requests
+```
+http://localhost:9899/
 ```
 
 ### Compiles and minifies for production
