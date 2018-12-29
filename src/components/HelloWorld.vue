@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Qtum } from "qtumjs";
-const repoData = require("../../../solar.development.json");
+const repoData = require("../../solar.development.json")
 const qtum = new Qtum("http://qtum:test@localhost:3889", repoData);
 const myToken = qtum.contract("MyContract.sol");
 
